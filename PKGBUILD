@@ -1,3 +1,4 @@
+# Maintainer: Self Denial <selfdenial@pm.me>
 pkgname=openmohaa-git
 _pkgname="${pkgname/-git/}"
 pkgver=0.80.0.r151.g38427fa
