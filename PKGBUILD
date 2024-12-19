@@ -1,6 +1,6 @@
 pkgname=openmohaa-git
 _pkgname="${pkgname/-git/}"
-pkgver=0.80.0.r117.g981b12b
+pkgver=0.80.0.r151.g38427fa
 pkgrel=1
 pkgdesc="Open re-implementation of Medal of Honor: Allied Assault "
 arch=('i686' 'x86_64')
@@ -23,7 +23,7 @@ build() {
   [[ -d build ]] && rm -rf build
   mkdir build && cd build
   
-  cmake -G Ninja ../ -DCMAKE_INSTALL_PREFIX="${pkgdir}/usr/" -DTARGET_LOCAL_SYSTEM=1 -DUSE_SYSTEM_LIBS=1
+  cmake -G Ninja ../ -DCMAKE_INSTALL_PREFIX="${pkgdir}/usr/" -DTARGET_LOCAL_SYSTEM=1 -DUSE_SYSTEM_LIBS=0
 }
 
 package() {
