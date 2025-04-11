@@ -1,7 +1,7 @@
-# Maintainer: Self Denial <selfdenial@pm.me>
+# Maintainer: Self Denial <selfdenial at pm dot me>
 pkgname=openmohaa-git
 _pkgname="${pkgname/-git/}"
-pkgver=0.80.0.r151.g38427fa
+pkgver=0.81.1.r272.g3074494
 pkgrel=1
 pkgdesc="Open re-implementation of Medal of Honor: Allied Assault "
 arch=('i686' 'x86_64')
@@ -10,25 +10,31 @@ license=('GPL2')
 depends=('openal' 'sdl2' 'openjpeg2' 'libmad')
 makedepends=('cmake' 'git' 'ninja')
 conflicts=("${_pkgname}")
-options=(!debug !lto)
+options=(!lto)
 source=("${_pkgname}::git+${url}.git")
 sha256sums=('SKIP')
 
 pkgver() {
-  cd "${_pkgname}"
+  cd "${srcdir}/${_pkgname}"
   git describe --tags --long --abbrev=7 | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 build() {
-  cd "${_pkgname}"
-  [[ -d build ]] && rm -rf build
-  mkdir build && cd build
-  
-  cmake -G Ninja ../ -DCMAKE_INSTALL_PREFIX="${pkgdir}/usr/" -DTARGET_LOCAL_SYSTEM=1 -DUSE_SYSTEM_LIBS=0
+  local cmake_options=(
+    -G Ninja
+    -B "${srcdir}/${_pkgname}/build"
+    -S "${srcdir}/${_pkgname}"
+    -DCMAKE_INSTALL_PREFIX="${pkgdir}/usr/"
+    -DTARGET_LOCAL_SYSTEM=1
+    -DUSE_SYSTEM_LIBS=0
+    -DCMAKE_BUILD_TYPE='None'
+    -Wno-dev
+  )
+
+  cmake "${cmake_options[@]}"
 }
 
 package() {
-  cd "${_pkgname}"
-  ninja -C build install
+  ninja -C "${srcdir}/${_pkgname}/build" install
 }
 
