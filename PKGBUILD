@@ -1,7 +1,9 @@
-# Maintainer: Self Denial <selfdenial at pm dot me>
+# Maintainer: Brian Thompson <brianrobt@pm.me>
+# Contributor: Self Denial <selfdenial at pm dot me>
+
 pkgname=openmohaa-git
 _pkgname="${pkgname/-git/}"
-pkgver=0.81.1.r272.g3074494
+pkgver=0.81.1.r386.gfa18824
 pkgrel=1
 pkgdesc="Open re-implementation of Medal of Honor: Allied Assault "
 arch=('i686' 'x86_64')
@@ -37,4 +39,3 @@ build() {
 package() {
   ninja -C "${srcdir}/${_pkgname}/build" install
 }
-
