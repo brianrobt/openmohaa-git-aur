@@ -3,14 +3,24 @@
 
 pkgname=openmohaa-git
 _pkgname="${pkgname/-git/}"
-pkgver=0.81.1.r386.gfa18824
+pkgver=0.81.1.r431.g3d1741e
 pkgrel=1
 pkgdesc="Open re-implementation of Medal of Honor: Allied Assault "
 arch=('i686' 'x86_64')
 url="https://github.com/openmoh/openmohaa"
 license=('GPL2')
-depends=('openal' 'sdl2' 'openjpeg2' 'libmad')
-makedepends=('cmake' 'git' 'ninja')
+depends=(
+  'openal'
+  'sdl2'
+  'openjpeg2'
+  'libmad'
+  'hicolor-icon-theme'
+)
+makedepends=(
+  'cmake'
+  'git'
+  'ninja'
+)
 conflicts=("${_pkgname}")
 options=(!lto)
 source=("${_pkgname}::git+${url}.git")

@@ -1,18 +1,22 @@
 FROM brianrobt/archlinux-aur-dev:latest
 
-RUN sudo pacman -Syu --noconfirm
-
 # Copy local AUR package files to the container
 COPY --chown=builder:builder .SRCINFO PKGBUILD ./
 
+# Update the system to resolve 404 errors for micromamba dependencies, libsolv and nss
+USER root
+RUN pacman -Syu --noconfirm
+
 # Install build dependencies
+USER builder
 RUN yay -S --noconfirm \
-  openal \
-  openjpeg2 \
-  libmad \
-  sdl2 \
-  cmake \
-  ninja
+    cmake \
+    ninja \
+    openal \
+    sdl2 \
+    openjpeg2 \
+    libmad \
+    hicolor-icon-theme
 
 # Build the package
-# RUN makepkg -si
+RUN makepkg -si --noconfirm
